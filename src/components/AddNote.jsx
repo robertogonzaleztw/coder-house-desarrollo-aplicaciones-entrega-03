@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   modal: {
     justifyContent: 'flex-start',
     backgroundColor: '#eae9e3',
-    minHeight: '50%',
+    minHeight: '60%',
     width: '80%',
     borderRadius: 10,
     padding: 20,
@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   label: {
-    fontSize: 15,
+    fontSize: 18,
     marginBottom: 5,
-    fontFamily: 'InconsolataRegular',
+    fontFamily: 'InconsolataMedium',
   },
   input: {
     alignSelf: 'center',
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     borderColor: '#4b88df',
     borderRadius: 5,
     fontFamily: 'InconsolataMedium',
+    fontSize: 15,
   },
   textArea: {
     flex: 1,
