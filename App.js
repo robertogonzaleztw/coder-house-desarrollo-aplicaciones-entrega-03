@@ -21,6 +21,8 @@ export default function App() {
   const [notes, setNotes] = useState([
     { title: 'nota 1', body: 'asdoaindoiqoweoiqweioqwe' },
     { title: 'nota 2', body: 'ahlsnlkanckjasldknaslkdnl' },
+    { title: 'nota 3', body: 'asdoaindoiqoweoiqweioqwe' },
+    { title: 'nota 4', body: 'ahlsnlkanckjasldknaslkdnl' },
   ])
   const [currentPage, setCurrenPage] = useState(PAGES[0])
   const [noteSelected, setNoteSelected] = useState()
@@ -54,7 +56,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.contentContainer}>
         <Header />
         <View style={styles.body}>{content}</View>
       </View>
@@ -65,11 +67,24 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    borderLeftWidth: 15,
+    borderRightWidth: 15,
+    borderColor: '#1e66a4',
+  },
+  contentContainer: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    // borderWidth: 10,
   },
   title: {
     fontFamily: 'InconsolataSemiBold',
+  },
+  body: {
+    flex: 1,
+    width: '100%',
   },
 })
