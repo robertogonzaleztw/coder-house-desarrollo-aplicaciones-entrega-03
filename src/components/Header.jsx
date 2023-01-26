@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
+import colors from '../constans/colors'
 
 const Header = () => {
   return (
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     borderBottomWidth: 15,
-    borderColor: '#1e66a4',
+    borderColor: colors.primary,
     paddingBottom: 5,
   },
   text: {

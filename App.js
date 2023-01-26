@@ -5,6 +5,7 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import NoteDetailScreen from './src/screens/NoteDetailScreen'
 import NotesScreen from './src/screens/NotesScreen'
 import Header from './src/components/Header'
+import colors from './src/constans/colors'
 
 const PAGES = ['NotesScreen', 'NoteDetailScreen']
 
@@ -18,12 +19,7 @@ export default function App() {
     InconsolataBold: require('./src/assets/fonts/Inconsolata-Bold.ttf'),
     InconsolataExtraBold: require('./src/assets/fonts/Inconsolata-ExtraBold.ttf'),
   })
-  const [notes, setNotes] = useState([
-    { title: 'nota 1', body: 'asdoaindoiqoweoiqweioqwe' },
-    { title: 'nota 2', body: 'ahlsnlkanckjasldknaslkdnl' },
-    { title: 'nota 3', body: 'asdoaindoiqoweoiqweioqwe' },
-    { title: 'nota 4', body: 'ahlsnlkanckjasldknaslkdnl' },
-  ])
+  const [notes, setNotes] = useState([])
   const [currentPage, setCurrenPage] = useState(PAGES[0])
   const [noteSelected, setNoteSelected] = useState()
 
@@ -37,12 +33,20 @@ export default function App() {
     setCurrenPage(PAGES[0])
   }
 
+  const onNewNoteHandler = (newNote) => {
+    setNotes((prevNotes) => [...prevNotes, newNote])
+  }
+
   let content
 
   switch (currentPage) {
     case 'NotesScreen':
       content = (
-        <NotesScreen notes={notes} onNoteSelected={onNoteSelectedHandler} />
+        <NotesScreen
+          notes={notes}
+          onNewNote={onNewNoteHandler}
+          onNoteSelected={onNoteSelectedHandler}
+        />
       )
       break
     case 'NoteDetailScreen':
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderLeftWidth: 15,
     borderRightWidth: 15,
-    borderColor: '#1e66a4',
+    borderColor: colors.primary,
   },
   contentContainer: {
     flex: 1,

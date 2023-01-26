@@ -7,8 +7,9 @@ import {
   View,
 } from 'react-native'
 import AddNote from '../components/AddNote'
+import colors from '../constans/colors'
 
-const NotesScreen = ({ notes, onNoteSelected }) => {
+const NotesScreen = ({ notes, onNoteSelected, onNewNote }) => {
   const [addNoteVisible, setAddNoteVisible] = useState(false)
 
   const onSelectHandler = (note) => {
@@ -23,6 +24,11 @@ const NotesScreen = ({ notes, onNoteSelected }) => {
     setAddNoteVisible(false)
   }
 
+  const onNewNoteHandler = (newNote) => {
+    setAddNoteVisible(false)
+    onNewNote(newNote)
+  }
+
   const renderItem = (note) => (
     <View style={styles.itemContainer}>
       <Text style={styles.itemTitle} ellipsizeMode="tail" numberOfLines="3">
@@ -30,7 +36,7 @@ const NotesScreen = ({ notes, onNoteSelected }) => {
       </Text>
       <TouchableOpacity
         style={styles.itemButton}
-        onPress={() => onNoteSelected(note)}
+        onPress={() => onSelectHandler(note)}
       >
         <Text style={styles.itemButtonText}>Read</Text>
       </TouchableOpacity>
@@ -39,20 +45,42 @@ const NotesScreen = ({ notes, onNoteSelected }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={notes}
-        renderItem={({ item }) => renderItem(item)}
-        key={(item) => item.name}
-        style={styles.grid}
-        numColumns={2}
-      />
+      {notes.length > 0 ? (
+        <View style={styles.gridContainer}>
+          <FlatList
+            data={notes}
+            renderItem={({ item }) => renderItem(item)}
+            key={(item) => item.name}
+            style={styles.grid}
+            numColumns={2}
+          />
+        </View>
+      ) : (
+        <View style={styles.noNotesContainer}>
+          <Text
+            style={[styles.noNotesContainerText, { alignSelf: 'flex-start' }]}
+          >
+            It is...
+          </Text>
+          <Text
+            style={[styles.noNotesContainerText, { alignSelf: 'flex-end' }]}
+          >
+            ...An empty book
+          </Text>
+        </View>
+      )}
+
       <TouchableOpacity
         onPress={onFloatingButtonPressHandler}
         style={styles.floatingButton}
       >
         <Text style={styles.floatingButtonText}>+</Text>
       </TouchableOpacity>
-      <AddNote visible={addNoteVisible} onClose={onCloseHandler} />
+      <AddNote
+        visible={addNoteVisible}
+        onNewNote={onNewNoteHandler}
+        onClose={onCloseHandler}
+      />
     </View>
   )
 }
@@ -64,6 +92,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  gridContainer: {
+    flex: 1,
+  },
   grid: {
     flex: 1,
   },
@@ -74,8 +105,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderColor: '#1e66a4',
-    backgroundColor: 'rgba(66,165,243,0.5)',
+    borderColor: colors.primary,
+    backgroundColor: colors.secondary,
     width: 150,
     height: 150,
   },
@@ -96,6 +127,16 @@ const styles = StyleSheet.create({
     fontFamily: 'InconsolataLight',
     fontSize: 25,
   },
+  noNotesContainer: {
+    flex: 0.85,
+    justifyContent: 'space-between',
+  },
+  noNotesContainerText: {
+    fontFamily: 'InconsolataLight',
+    fontSize: 35,
+    alignSelf: 'flex-start',
+    color: '#413f3f',
+  },
   floatingButton: {
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.2)',
@@ -106,7 +147,7 @@ const styles = StyleSheet.create({
     right: 10,
     height: 60,
     width: 60,
-    backgroundColor: '#2060a4',
+    backgroundColor: colors.button,
     borderRadius: 100,
   },
   floatingButtonText: {

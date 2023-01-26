@@ -1,7 +1,7 @@
 // pallette https://www.color-hex.com/color-palette/1021921
 export default {
-  primary: "#42a5f3",
-  secondary: "#4b88df",
-  background: "#1e66a4",
-  disableColor: "#272638",
+  primary: '#1e66a4',
+  secondary: '#42a5f3',
+  button: '#2060a4',
+  lines: '#4b88df',
 }

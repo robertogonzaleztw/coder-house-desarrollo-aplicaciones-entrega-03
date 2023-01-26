@@ -1,35 +1,56 @@
 import React, { useState } from 'react'
 import {
+  Keyboard,
   Modal,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
 import uuid from 'react-native-uuid'
+import colors from '../constans/colors'
 
 const AddNote = ({ visible, onNewNote, onClose }) => {
   const [title, setTitle] = useState()
   const [body, setBody] = useState()
 
-  const onPressHandler = () => {
-    onNewNote({ id: uuid.v4(), title, body })
+  const clearInputs = () => {
+    setTitle('')
+    setBody('')
   }
 
-  const onPressBackground = () => {
+  const onPressHandler = () => {
+    onNewNote({ id: uuid.v4(), title, body })
+    clearInputs()
+  }
+
+  const onClosePress = () => {
     onClose()
+    clearInputs()
   }
 
   return (
     <View>
       <Modal animationType="fade" transparent visible={visible}>
-        <TouchableWithoutFeedback onPress={onPressBackground}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            console.log('p')
+            Keyboard.dismiss()
+          }}
+        >
           <View style={styles.modalBackground}>
             <View style={styles.modal}>
               <View style={styles.titleContainer}>
                 <Text style={styles.title}>New Note</Text>
+                <TouchableOpacity
+                  style={styles.closeContainer}
+                  onPress={onClosePress}
+                >
+                  <Text style={styles.closeContainerText}>X</Text>
+                </TouchableOpacity>
               </View>
               <View style={styles.inputContainer}>
                 <Text style={styles.label}>Title</Text>
@@ -89,12 +110,25 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     borderStyle: 'solid',
-    borderBottomColor: '#4b88df',
+    borderBottomColor: colors.lines,
     borderBottomWidth: 2,
   },
   title: {
     fontSize: 30,
     fontFamily: 'InconsolataBold',
+  },
+  closeContainer: {
+    position: 'absolute',
+    right: 5,
+    backgroundColor: colors.button,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  closeContainerText: {
+    color: 'white',
+    fontFamily: 'InconsolataExtraBold',
+    fontSize: 15,
   },
   inputContainer: {
     width: '100%',
@@ -111,7 +145,7 @@ const styles = StyleSheet.create({
     width: '95%',
     borderWidth: 1.2,
     padding: 5,
-    borderColor: '#4b88df',
+    borderColor: colors.lines,
     borderRadius: 5,
     fontFamily: 'InconsolataMedium',
     fontSize: 15,
@@ -128,10 +162,10 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'flex-end',
     borderRadius: 5,
-    borderColor: '#4b88df',
+    borderColor: colors.lines,
     borderWidth: 1,
     padding: 10,
-    backgroundColor: '#2069c7',
+    backgroundColor: colors.button,
   },
   buttonFont: {
     fontSize: 18,
