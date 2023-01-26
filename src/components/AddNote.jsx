@@ -37,7 +37,6 @@ const AddNote = ({ visible, onNewNote, onClose }) => {
       <Modal animationType="fade" transparent visible={visible}>
         <TouchableWithoutFeedback
           onPress={() => {
-            console.log('p')
             Keyboard.dismiss()
           }}
         >
